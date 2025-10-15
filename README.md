@@ -21,21 +21,33 @@ git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git
 cd Soundcloud_Wav_Playlist
 ```
 
-2. Install required dependencies:
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+3. Install required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
 ## 📖 Usage
 
+You can run the script and you will be prompted to enter the playlist URL in the terminal:
 ```bash
-python main.py [SOUNDCLOUD_PLAYLIST_URL]
+python scpdlwav.py
+```
+
+Alternatively, you can pass the SoundCloud playlist URL as an argument:
+```bash
+python scpdlwav.py [SOUNDCLOUD_PLAYLIST_URL]
 ```
 
 ### Example
 
 ```bash
-python main.py https://soundcloud.com/user/sets/playlist-name
+python scpdlwav.py https://soundcloud.com/user/sets/playlist-name
 ```
 
 ## 🛠️ Requirements
