@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(192, 65%, 37%)"/>
+      <stop offset="100%" style="stop-color:hsl(222, 75%, 52%)"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="10.24" stdDeviation="10.24" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="40.96" fill="url(#bg)"/>
+  <polygon points="256,51.2 460.8,358.4 51.2,358.4" fill="hsl(222, 75%, 52%)" opacity="0.15"/><polygon points="256,153.6 358.4,307.2 153.6,307.2" fill="hsl(222, 75%, 52%)" opacity="0.12"/>
+  <text x="256" y="256" text-anchor="middle" dominant-baseline="central" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="143.36" fill="hsl(0, 0%, 95%)" filter="url(#shadow)">SW</text>
+</svg>
