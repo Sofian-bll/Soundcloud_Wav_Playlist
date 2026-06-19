@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Soundcloud WAV Playlist Downloader</title>
+<style>
+  :root {
+    --bg: #0c0b0f;
+    --surface: #18161d;
+    --text: #e8e4f0;
+    --muted: #8a8499;
+    --accent: #f77f00;
+    --accent2: #e36414;
+    --border: #2a2633;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 72px 0 48px;
+    text-align: center;
+  }
+  .header-logo { width: 96px; height: 96px; margin-bottom: 20px; }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle { font-size: 1rem; color: var(--muted); max-width: 440px; margin: 0 auto 20px; }
+  .badges {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 0.7rem; font-weight: 600; padding: 4px 10px;
+    border-radius: 16px; border: 1px solid var(--border); color: var(--muted);
+  }
+  .badge.hl { color: var(--accent); border-color: var(--accent); }
+
+  .waves {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    margin: 0 0 32px;
+    overflow: hidden;
+  }
+  .waves span {
+    display: block;
+    width: 4px;
+    background: linear-gradient(to top, var(--accent), transparent);
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite alternate;
+  }
+  @keyframes wave { 0% { height: 10px; } 100% { height: calc(20px + 40px * var(--s, 0.5)); } }
+
+  section { padding: 40px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  h2 { font-size: 1.2rem; margin-bottom: 16px; color: var(--accent); }
+
+  .terminal {
+    background: #0a090e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .terminal-bar {
+    padding: 8px 14px; background: var(--surface);
+    border-bottom: 1px solid var(--border); display: flex; gap: 8px;
+  }
+  .terminal-bar span { width: 10px; height: 10px; border-radius: 50%; background: #444; }
+  .terminal-bar span:nth-child(1) { background: #ff5f56; }
+  .terminal-bar span:nth-child(2) { background: #ffbd2e; }
+  .terminal-bar span:nth-child(3) { background: #27c93f; }
+  .terminal-body {
+    padding: 16px 18px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .terminal-body .pr { color: var(--accent2); }
+  .terminal-body .cmd { color: var(--accent); }
+  .terminal-body .out { color: var(--muted); }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .feature h3 { font-size: 0.95rem; margin-bottom: 6px; }
+  .feature p { font-size: 0.83rem; color: var(--muted); }
+
+  footer {
+    text-align: center; padding: 40px 0; font-size: 0.78rem;
+    color: var(--muted); border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="container">
+  <img src="../assets/logo.svg" alt="Soundcloud WAV Playlist" class="header-logo"/>
+  <h1>scpdlwav</h1>
+  <p class="subtitle">Download SoundCloud playlists and convert every track to lossless WAV with preserved metadata.</p>
+  <div class="badges">
+    <span class="badge hl">MIT</span>
+    <span class="badge">Python 3</span>
+    <span class="badge">ffmpeg</span>
+    <span class="badge">SoundCloud</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="waves" id="waves"></div>
+</div>
+
+<div class="container">
+  <div class="terminal">
+    <div class="terminal-bar"><span></span><span></span><span></span></div>
+    <div class="terminal-body">
+      <span class="pr">$</span> <span class="cmd">python scpdlwav.py</span><br/>
+      <span class="out">Soundcloud WAV Playlist Downloader</span><br/>
+      <span class="out">Enter playlist URL:</span><br/>
+      <span class="pr">></span> <span class="cmd">https://soundcloud.com/artist/sets/mixtape</span><br/>
+      <span class="out">[1/14] Downloading track...</span><br/>
+      <span class="out">[1/14] Converting to WAV → 1411 kbps, 44.1 kHz</span><br/>
+      <span class="out">[1/14] Done: Artist - Track Title.wav</span><br/>
+      <span class="out">...</span>
+    </div>
+  </div>
+</div>
+
+<section class="container">
+  <h2>Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Full Playlist Downloads</h3>
+      <p>Point it at a set URL, get every track in one run.</p>
+    </div>
+    <div class="feature">
+      <h3>Lossless WAV</h3>
+      <p>Conversion via ffmpeg — 1411 kbps, 44.1 kHz stereo.</p>
+    </div>
+    <div class="feature">
+      <h3>Metadata Intact</h3>
+      <p>Title, artist, genre, track number, date, and cover art preserved.</p>
+    </div>
+    <div class="feature">
+      <h3>Quick Setup</h3>
+      <p>One venv, one pip install, one ffmpeg binary. That's it.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>MIT &copy; 2026 Sofian &middot; <a href="https://github.com/Sofian-bll/Soundcloud_Wav_Playlist">GitHub</a></p>
+</footer>
+
+<script>
+(function(){
+  const waves = document.getElementById('waves');
+  for(let i = 0; i < 80; i++) {
+    const s = document.createElement('span');
+    s.style.setProperty('--s', Math.random().toFixed(2));
+    s.style.animationDelay = (Math.random() * 1.5).toFixed(2) + 's';
+    waves.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
