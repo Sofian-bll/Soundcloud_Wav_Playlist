@@ -1,78 +1,59 @@
-# Soundcloud WAV Playlist Downloader
+> [Read in English](README.md) | [Lire en Francais](README.fr.md)
 
-A Python tool to download SoundCloud playlists and convert them to WAV format.
+<p align="center">
+  <img src="assets/logo.svg" alt="SWP logo" width="160"/>
+</p>
 
-## 📋 Description
+<h1 align="center" id="readme-top">Soundcloud WAV Playlist Downloader</h1>
 
-This project allows you to download entire playlists from SoundCloud and automatically convert the tracks to high-quality WAV audio files. Perfect for DJs, music producers, or anyone who needs offline access to their SoundCloud playlists in uncompressed format.
+<p align="center">
+  Download SoundCloud playlists and convert tracks to lossless WAV.
+</p>
 
-## ✨ Features
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"/>
+  <img src="https://img.shields.io/badge/Python-3-blue?style=flat&logo=python" alt="Python"/>
+  <img src="https://img.shields.io/badge/ffmpeg-required-green?style=flat&logo=ffmpeg" alt="ffmpeg"/>
+</p>
 
-- 🎵 Download complete SoundCloud playlists
-- 🔊 Automatic conversion to WAV format
-- 📦 Batch processing of multiple tracks
-- 💾 High-quality audio output
+---
 
-## 🚀 Installation
+## Features
 
-1. Clone the repository:
+- Download complete SoundCloud playlists
+- Automatic conversion to WAV (lossless, uncompressed)
+- Metadata preservation (title, artist, genre, track number, date, cover art)
+- Batch processing of multiple tracks
+
+## Quick Start
+
 ```bash
-git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git
-cd Soundcloud_Wav_Playlist
-```
-
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-```
-
-3. Install required dependencies:
-```bash
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 📖 Usage
+If you don't have it yet: `brew install ffmpeg` (macOS) or `apt install ffmpeg` (Linux).
 
-You can run the script and you will be prompted to enter the playlist URL in the terminal:
+## Usage
+
 ```bash
+# Interactive prompt
 python scpdlwav.py
-```
 
-Alternatively, you can pass the SoundCloud playlist URL as an argument:
-```bash
-python scpdlwav.py [SOUNDCLOUD_PLAYLIST_URL]
-```
-
-### Example
-
-```bash
+# Pass URL directly
 python scpdlwav.py https://soundcloud.com/user/sets/playlist-name
 ```
 
-## 🛠️ Requirements
+## Requirements
 
 - Python 3.x
-- See `requirements.txt` for package dependencies
+- ffmpeg
+- See `requirements.txt` for Python packages
 
-## ⚠️ Legal Notice
+## Legal Notice
 
-This tool is for personal use only. Please respect SoundCloud's Terms of Service and copyright laws. Only download content you have the right to access.
+For personal use only. Respect SoundCloud's Terms of Service and copyright laws. Only download content you have the right to access.
 
-## 📝 License
+## License
 
-This project is available for personal and educational use.
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/issues).
-
-## 👤 Author
-
-**Sofian-bll**
-
-- GitHub: [@Sofian-bll](https://github.com/Sofian-bll)
-
-## ⭐ Show your support
-
-Give a ⭐️ if this project helped you!
+MIT © 2026 Sofian — see [LICENSE](LICENSE).
