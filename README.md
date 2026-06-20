@@ -1,8 +1,8 @@
 <div align="center">
 
-[![License: MIT](https://img.shields.io/github/license/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/blob/main/LICENSE)
-[![Version](https://img.shields.io/github/v/release/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/releases)
-[![Stars](https://img.shields.io/github/stars/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/stargazers)
+[![License: MIT](https://img.shields.io/github/license/Sofian-bll/scpdl-wav?style=flat)](https://github.com/Sofian-bll/scpdl-wav/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/Sofian-bll/scpdl-wav?style=flat)](https://github.com/Sofian-bll/scpdl-wav/releases)
+[![Stars](https://img.shields.io/github/stars/Sofian-bll/scpdl-wav?style=flat)](https://github.com/Sofian-bll/scpdl-wav/stargazers)
 
 <p align="center">
   <img src="docs/assets/logo.png" alt="scpdlwav logo" width="160"/>
@@ -28,17 +28,17 @@
 
 ## Built With
 
-[![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://www.python.org/)
-[![FFmpeg](https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white)](https://ffmpeg.org/)
-[![Mutagen](https://img.shields.io/badge/mutagen-888888?style=flat&logo=python&logoColor=white)](https://mutagen.readthedocs.io/)
-[![scdl](https://img.shields.io/badge/scdl-ff5500?style=flat&logo=soundcloud&logoColor=white)](https://github.com/flyingrub/scdl)
+- [![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://www.python.org/) — core runtime
+- [![scdl](https://img.shields.io/badge/scdl-ff5500?style=flat&logo=soundcloud&logoColor=white)](https://github.com/flyingrub/scdl) — SoundCloud downloader
+- [![FFmpeg](https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white)](https://ffmpeg.org/) — audio transcoding
+- [![Mutagen](https://img.shields.io/badge/mutagen-888888?style=flat&logo=python&logoColor=white)](https://mutagen.readthedocs.io/) — metadata extraction
 
 ## Quick Start
 
 ```bash
 # Clone and set up
-git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git
-cd Soundcloud_Wav_Playlist
+git clone https://github.com/Sofian-bll/scpdl-wav.git
+cd scpdl-wav
 
 # Create virtual environment and install dependencies
 python3 -m venv .venv && source .venv/bin/activate
