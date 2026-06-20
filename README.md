@@ -28,10 +28,10 @@
 
 ## Built With
 
-- [Python 3](https://www.python.org/) — core runtime
-- [scdl](https://github.com/flyingrub/scdl) — SoundCloud downloader CLI
-- [mutagen](https://mutagen.readthedocs.io/) — audio metadata extraction and embedding
-- [ffmpeg](https://ffmpeg.org/) — audio transcoding engine
+[![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![FFmpeg](https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white)](https://ffmpeg.org/)
+[![Mutagen](https://img.shields.io/badge/mutagen-888888?style=flat&logo=python&logoColor=white)](https://mutagen.readthedocs.io/)
+[![scdl](https://img.shields.io/badge/scdl-ff5500?style=flat&logo=soundcloud&logoColor=white)](https://github.com/flyingrub/scdl)
 
 ## Quick Start
 
@@ -136,3 +136,7 @@ MIT © 2026 Sofian — see [LICENSE](LICENSE).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- REFERENCE_LINKS -->
+[python]: https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54
+[ffmpeg]: https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white
+[mutagen]: https://img.shields.io/badge/mutagen-888888?style=flat&logo=python&logoColor=white
+[scdl]: https://img.shields.io/badge/scdl-ff5500?style=flat&logo=soundcloud&logoColor=white
