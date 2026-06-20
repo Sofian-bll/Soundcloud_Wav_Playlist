@@ -67,6 +67,16 @@ python scpdlwav.py --verbose --url https://soundcloud.com/user/sets/playlist-nam
 
 Tracks are downloaded to `downloads/<playlist-name>/` and WAV files land in `downloads/<playlist-name>/WAV/`.
 
+## Disclaimer
+
+This tool is intended for **personal and educational use only**. It orchestrates
+open-source components to download music that users have legal access to via
+their SoundCloud account. Users are solely responsible for complying with
+SoundCloud's Terms of Service and applicable copyright laws in their
+jurisdiction.
+
+This project does not host, distribute, or monetize any copyrighted content.
+
 ## How It Works
 
 ```mermaid

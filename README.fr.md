@@ -67,6 +67,16 @@ python scpdlwav.py --verbose --url https://soundcloud.com/user/sets/playlist-nam
 
 Les pistes sont téléchargées dans `downloads/<nom-playlist>/` et les WAV dans `downloads/<nom-playlist>/WAV/`.
 
+## Avertissement légal
+
+Cet outil est destiné à un **usage personnel et éducatif uniquement**. Il
+orchestre des composants open-source pour télécharger de la musique à laquelle
+l'utilisateur a légalement accès via son compte SoundCloud. L'utilisateur est
+seul responsable du respect des conditions d'utilisation de SoundCloud et des
+lois sur le droit d'auteur en vigueur dans sa juridiction.
+
+Ce projet n'héberge, ne distribue ni ne monétise aucun contenu protégé.
+
 ## Fonctionnement
 
 ```mermaid

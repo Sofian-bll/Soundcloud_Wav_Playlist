@@ -1,0 +1,11 @@
+# Dependencies
+.venv/
+
+# System files
+.DS_Store
+
+# Downloaded audio files (copyrighted content)
+downloads/
+
+# IDE
+.idea/
