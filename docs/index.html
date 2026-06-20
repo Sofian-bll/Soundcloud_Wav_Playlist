@@ -75,18 +75,18 @@ tailwind.config = {
   --muted: rgba(245,240,235,0.58);
 
   /* Accents */
-  --primary: ;
-  --secondary: ;
-  --accent: ;
+  --primary: #f77f00;
+  --secondary: #e36414;
+  --accent: #6366f1;
 
   --primary-dim: color-mix(in srgb, var(--primary) 20%, transparent);
   --primary-dimmer: color-mix(in srgb, var(--primary) 5%, transparent);
   --primary-glow: color-mix(in srgb, var(--primary) 40%, transparent);
 
   /* Typography */
-  --font-display: system-ui, -apple-system, sans-serif;
-  --font-body: system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  --font-display: "Archivo Black", Impact, "Arial Narrow Bold", sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 
   /* Light theme */
   --light-bg: #faf8f5;
@@ -292,11 +292,11 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl mx-auto pt-12 reveal visible" style="transition-delay:.15s">
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
           <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
             <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">4</span> <span class="font-semibold text-text">Commands</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">cli surface</div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
@@ -305,7 +305,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           </div>
           <div class="min-w-0">
             <div class="text-sm"><span class="font-bold text-lg text-secondary leading-tight">2</span> <span class="font-semibold text-text">Runtime Deps</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">pip install</div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
@@ -314,7 +314,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           </div>
           <div class="min-w-0">
             <div class="text-sm"><span class="font-bold text-lg text-accent leading-tight">1</span> <span class="font-semibold text-text">Star</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight">on GitHub</div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
           </div>
         </div>
       </div>
@@ -349,36 +349,36 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-20 reveal">
       <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Features</h2>
-      <div class="text-muted text-lg leading-relaxed"></div>
+      <div class="text-muted text-lg leading-relaxed"><p class="text-muted">Everything you need to build your offline music library.</p></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.0s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10"/></svg>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
         <h3 class="font-bold text-lg">Full Playlist Downloads</h3>
-        <p class="text-muted text-sm leading-relaxed">Download complete SoundCloud playlists in one command.</p>
+        <p class="text-muted text-sm leading-relaxed">Download entire SoundCloud playlists in one command — no manual track-by-track work.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.1s">
-        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
         <h3 class="font-bold text-lg">Lossless WAV Output</h3>
-        <p class="text-muted text-sm leading-relaxed">Automatic M4A/MP3/OPUS to WAV conversion via FFmpeg.</p>
+        <p class="text-muted text-sm leading-relaxed">Automatic M4A/MP3/OPUS → WAV 16-bit 44.1kHz stereo conversion via FFmpeg.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.2s">
-        <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         </div>
         <h3 class="font-bold text-lg">Metadata Preservation</h3>
-        <p class="text-muted text-sm leading-relaxed">Title, artist, genre, track number, date, and cover art preserved.</p>
+        <p class="text-muted text-sm leading-relaxed">Title, artist, genre, track number, date, and cover art preserved via Mutagen.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.3s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
         <h3 class="font-bold text-lg">Multi-Format Input</h3>
-        <p class="text-muted text-sm leading-relaxed">Support for URLs, text file playlists, and dry-run mode.</p>
+        <p class="text-muted text-sm leading-relaxed">Direct URL, text file with track list, or dry-run mode to preview before downloading.</p>
       </div>
     </div>
   </div>
@@ -409,9 +409,9 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
         </div>
         <pre id="code-setup" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><code class="text-accent">git clone https://github.com/Sofian-bll/scpdl-wav</code>
 <code class="text-accent">cd scpdl-wav</code>
-<code class="text-secondary">python3 -m venv .venv && source .venv/bin/activate</code>
+<code class="text-primary">python3 -m venv .venv && source .venv/bin/activate</code>
 <code class="text-primary">pip install -r requirements.txt</code>
-<span class="text-muted"># macOS only</span>
+<span class="text-muted"># macOS — or apt/pacman on Linux</span>
 <code class="text-accent">brew install ffmpeg</code></pre>
       </div>
       <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.1s">
@@ -424,14 +424,14 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           </button>
         </div>
-        <pre id="code-run" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Direct playlist URL</span>
+        <pre id="code-run" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Direct URL download</span>
 <code class="text-primary">python scpdlwav.py "https://soundcloud.com/..."</code>
-<span class="text-muted"># Batch from text file</span>
-<code class="text-accent">python scpdlwav.py playlists.txt</code>
-<span class="text-muted"># Preview only, no download</span>
-<code class="text-secondary">python scpdlwav.py --dry-run "https://..."</code>
-<span class="text-muted"># Verbose mode</span>
-<code class="text-primary">python scpdlwav.py -v "https://..."</code></pre>
+<span class="text-muted"># Batch from file</span>
+<code class="text-accent">python scpdlwav.py tracks.txt</code>
+<span class="text-muted"># Preview only</span>
+<code class="text-accent">python scpdlwav.py --dry-run tracks.txt</code>
+<span class="text-muted"># Debug mode</span>
+<code class="text-accent">python scpdlwav.py --verbose "https://..."</code></pre>
       </div>
     </div>
   </div>
@@ -516,6 +516,9 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
     </div>
     <div class="flex items-center gap-4 text-sm font-medium text-muted">
       <a href="https://www.python.org/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54" alt="Python" class="h-5"></a>
+        <a href="https://ffmpeg.org/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white" alt="FFmpeg" class="h-5"></a>
+        <a href="https://mutagen.readthedocs.io/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/mutagen-888888?style=flat&logo=python&logoColor=white" alt="Mutagen" class="h-5"></a>
+        <a href="https://github.com/flyingrub/scdl" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/scdl-ff5500?style=flat&logo=soundcloud&logoColor=white" alt="scdl" class="h-5"></a>
     </div>
   </div>
 </footer>
