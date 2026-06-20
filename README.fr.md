@@ -1,59 +1,128 @@
-> [Read in English](README.md) | [Lire en Francais](README.fr.md)
+<div align="center">
+
+[![License: MIT](https://img.shields.io/github/license/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/releases)
+[![Stars](https://img.shields.io/github/stars/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/stargazers)
 
 <p align="center">
-  <img src="assets/logo.svg" alt="SWP logo" width="160"/>
+  <img src="docs/assets/logo.png" alt="logo scpdlwav" width="160"/>
 </p>
 
-<h1 align="center" id="readme-top">Soundcloud WAV Playlist Downloader</h1>
+<a id="readme-top"></a>
+<h1 align="center">Soundcloud WAV Playlist Downloader</h1>
 
-<p align="center">
-  Telecharge des playlists SoundCloud et convertit les pistes en WAV sans perte.
-</p>
+<p align="center">Téléchargez des playlists SoundCloud et convertissez chaque piste en WAV lossless avec métadonnées préservées.</p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"/>
-  <img src="https://img.shields.io/badge/Python-3-blue?style=flat&logo=python" alt="Python"/>
-  <img src="https://img.shields.io/badge/ffmpeg-requis-green?style=flat&logo=ffmpeg" alt="ffmpeg"/>
-</p>
+<p align="center">🇬🇧 <a href="README.md">English</a> · 🇫🇷 <a href="README.fr.md"><b>Français</b></a></p>
+
+</div>
 
 ---
 
-## Fonctionnalites
+## Fonctionnalités
 
-- Telechargement de playlists SoundCloud completes
-- Conversion automatique en WAV (sans perte, non compresse)
-- Conservation des metadonnees (titre, artiste, genre, piste, date, pochette)
-- Traitement par lot de plusieurs pistes
+- **Téléchargement complet de playlists** — pointez vers une URL de set SoundCloud, récupérez toutes les pistes en une exécution
+- **Conversion WAV lossless** — ffmpeg transcode en WAV stéréo 44.1 kHz / 16-bit non compressé
+- **Préservation des métadonnées** — titre, artiste, album, genre, numéro de piste, date et pochette conservés depuis la source
+- **Multi-format en entrée** — gère les sources M4A (AAC), MP3 (ID3) et OPUS avec extraction adaptée à chaque format
 
-## Demarrage rapide
+## Technos utilisées
+
+- [Python 3](https://www.python.org/) — langage principal
+- [scdl](https://github.com/flyingrub/scdl) — CLI de téléchargement SoundCloud
+- [mutagen](https://mutagen.readthedocs.io/) — extraction et écriture des métadonnées audio
+- [ffmpeg](https://ffmpeg.org/) — moteur de transcodage audio
+
+## Démarrage rapide
 
 ```bash
+# Cloner et configurer
+git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git
+cd Soundcloud_Wav_Playlist
+
+# Créer l'environnement virtuel et installer les dépendances
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-```
 
-Si ce n'est pas deja fait : `brew install ffmpeg` (macOS) ou `apt install ffmpeg` (Linux).
+# Installer ffmpeg (si pas déjà installé)
+brew install ffmpeg        # macOS
+# apt install ffmpeg        # Linux
+```
 
 ## Utilisation
 
 ```bash
-# Saisie interactive
+# Mode interactif — collez l'URL quand demandé
 python scpdlwav.py
 
-# URL passee en argument
-python scpdlwav.py https://soundcloud.com/user/sets/nom-de-playlist
+# Passer l'URL directement
+python scpdlwav.py --url https://soundcloud.com/user/sets/playlist-name
+
+# Dry-run (aperçu sans téléchargement)
+python scpdlwav.py --dry-run --url https://soundcloud.com/user/sets/playlist-name
+
+# Mode verbeux
+python scpdlwav.py --verbose --url https://soundcloud.com/user/sets/playlist-name
 ```
 
-## Pre-requis
+Les pistes sont téléchargées dans `downloads/<nom-playlist>/` et les WAV dans `downloads/<nom-playlist>/WAV/`.
 
-- Python 3.x
-- ffmpeg
-- Voir `requirements.txt` pour les paquets Python
+## Fonctionnement
 
-## Note legale
+```mermaid
+flowchart LR
+    URL["🔗 URL Playlist"] --> SCDL["téléchargement scdl"]
+    SCDL --> FILES["M4A / MP3 / OPUS"]
+    FILES --> FFMPEG["transcodage ffmpeg"]
+    FFMPEG --> WAV["WAV 44.1 kHz 16-bit"]
+    FILES --> META["extraction mutagen"]
+    META --> WAV
+```
 
-Usage personnel uniquement. Respectez les conditions d'utilisation de SoundCloud et les droits d'auteur. Ne telechargez que le contenu auquel vous avez le droit d'acceder.
+1. **scdl** télécharge chaque piste du set SoundCloud
+2. **ffmpeg** transcode chaque fichier en WAV PCM non compressé
+3. **mutagen** extrait les métadonnées (tags, pochette) de la source et les injecte dans le WAV via ID3
+
+## Structure du projet
+
+```
+scpdlwav.py          # Script principal — téléchargement, conversion, métadonnées
+setup_env.py         # Script de configuration initiale
+requirements.txt     # Dépendances Python
+docs/                # Page d'accueil et assets
+assets/              # Logo
+```
+
+## Démo
+
+```bash
+$ python scpdlwav.py --url https://soundcloud.com/artist/sets/mixtape
+
+Soundcloud WAV Playlist Downloader
+Dossier de téléchargement: downloads/mixtape
+Dossier WAV: downloads/mixtape/WAV
+
+[1/14] Téléchargement de la playlist...
+[1/14] → Conversion: 'Track.m4a' → 'Track.wav'
+[1/14] Métadonnées sauvegardées pour Track.wav
+...
+Conversion terminée: 14 réussies, 0 erreurs
+```
+
+## Contribuer
+
+Les contributions sont les bienvenues.
+
+1. Fork le projet
+2. Créez votre branche (`git checkout -b feat/fonctionnalite-geniale`)
+3. Committez vos changements (`git commit -m "feat: ajout fonctionnalité"`)
+4. Poussez la branche (`git push origin feat/fonctionnalite-geniale`)
+5. Ouvrez une Pull Request
 
 ## Licence
 
 MIT © 2026 Sofian — voir [LICENSE](LICENSE).
+
+<p align="right">(<a href="#readme-top">haut de page</a>)</p>
+
+<!-- REFERENCE_LINKS -->

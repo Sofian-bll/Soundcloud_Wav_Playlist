@@ -1,59 +1,128 @@
-> [Read in English](README.md) | [Lire en Francais](README.fr.md)
+<div align="center">
+
+[![License: MIT](https://img.shields.io/github/license/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/releases)
+[![Stars](https://img.shields.io/github/stars/Sofian-bll/Soundcloud_Wav_Playlist?style=flat)](https://github.com/Sofian-bll/Soundcloud_Wav_Playlist/stargazers)
 
 <p align="center">
-  <img src="assets/logo.svg" alt="SWP logo" width="160"/>
+  <img src="docs/assets/logo.png" alt="scpdlwav logo" width="160"/>
 </p>
 
-<h1 align="center" id="readme-top">Soundcloud WAV Playlist Downloader</h1>
+<a id="readme-top"></a>
+<h1 align="center">Soundcloud WAV Playlist Downloader</h1>
 
-<p align="center">
-  Download SoundCloud playlists and convert tracks to lossless WAV.
-</p>
+<p align="center">Download SoundCloud playlists and convert every track to lossless WAV with preserved metadata.</p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"/>
-  <img src="https://img.shields.io/badge/Python-3-blue?style=flat&logo=python" alt="Python"/>
-  <img src="https://img.shields.io/badge/ffmpeg-required-green?style=flat&logo=ffmpeg" alt="ffmpeg"/>
-</p>
+<p align="center">🇬🇧 <a href="README.md"><b>English</b></a> · 🇫🇷 <a href="README.fr.md">Français</a></p>
+
+</div>
 
 ---
 
 ## Features
 
-- Download complete SoundCloud playlists
-- Automatic conversion to WAV (lossless, uncompressed)
-- Metadata preservation (title, artist, genre, track number, date, cover art)
-- Batch processing of multiple tracks
+- **Full playlist downloads** — point at a SoundCloud set URL, get every track in one run
+- **Lossless WAV conversion** — ffmpeg transcodes to uncompressed 44.1 kHz / 16-bit stereo WAV
+- **Metadata preservation** — title, artist, album, genre, track number, date, and cover art carried over from source
+- **Multi-format input** — handles M4A (AAC), MP3 (ID3), and OPUS with format-specific extraction
+
+## Built With
+
+- [Python 3](https://www.python.org/) — core runtime
+- [scdl](https://github.com/flyingrub/scdl) — SoundCloud downloader CLI
+- [mutagen](https://mutagen.readthedocs.io/) — audio metadata extraction and embedding
+- [ffmpeg](https://ffmpeg.org/) — audio transcoding engine
 
 ## Quick Start
 
 ```bash
+# Clone and set up
+git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git
+cd Soundcloud_Wav_Playlist
+
+# Create virtual environment and install dependencies
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-```
 
-If you don't have it yet: `brew install ffmpeg` (macOS) or `apt install ffmpeg` (Linux).
+# Install ffmpeg (if not already installed)
+brew install ffmpeg        # macOS
+# apt install ffmpeg        # Linux
+```
 
 ## Usage
 
 ```bash
-# Interactive prompt
+# Interactive mode — paste the URL when prompted
 python scpdlwav.py
 
 # Pass URL directly
-python scpdlwav.py https://soundcloud.com/user/sets/playlist-name
+python scpdlwav.py --url https://soundcloud.com/user/sets/playlist-name
+
+# Dry-run (preview without downloading)
+python scpdlwav.py --dry-run --url https://soundcloud.com/user/sets/playlist-name
+
+# Verbose logging
+python scpdlwav.py --verbose --url https://soundcloud.com/user/sets/playlist-name
 ```
 
-## Requirements
+Tracks are downloaded to `downloads/<playlist-name>/` and WAV files land in `downloads/<playlist-name>/WAV/`.
 
-- Python 3.x
-- ffmpeg
-- See `requirements.txt` for Python packages
+## How It Works
 
-## Legal Notice
+```mermaid
+flowchart LR
+    URL["🔗 Playlist URL"] --> SCDL["scdl download"]
+    SCDL --> FILES["M4A / MP3 / OPUS"]
+    FILES --> FFMPEG["ffmpeg transcode"]
+    FFMPEG --> WAV["WAV 44.1 kHz 16-bit"]
+    FILES --> META["mutagen extract"]
+    META --> WAV
+```
 
-For personal use only. Respect SoundCloud's Terms of Service and copyright laws. Only download content you have the right to access.
+1. **scdl** downloads every track from the SoundCloud set
+2. **ffmpeg** transcodes each file to uncompressed PCM WAV
+3. **mutagen** extracts metadata (tags, cover art) from the source and embeds it into the WAV via ID3
+
+## Project Structure
+
+```
+scpdlwav.py          # Main script — download, convert, embed metadata
+setup_env.py         # One-shot environment setup
+requirements.txt     # Python dependencies
+docs/                # Landing page and assets
+assets/              # Logo
+```
+
+## Demo
+
+```bash
+$ python scpdlwav.py --url https://soundcloud.com/artist/sets/mixtape
+
+Soundcloud WAV Playlist Downloader
+Dossier de télépchargement: downloads/mixtape
+Dossier WAV: downloads/mixtape/WAV
+
+[1/14] Télépchargement de la playlist...
+[1/14] → Conversion: 'Track.m4a' → 'Track.wav'
+[1/14] Métadonnées sauvegardées pour Track.wav
+...
+Conversion terminée: 14 réussies, 0 erreurs
+```
+
+## Contributing
+
+Contributions are welcome.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feat/amazing-feature`)
+3. Commit your changes (`git commit -m "feat: add amazing feature"`)
+4. Push to the branch (`git push origin feat/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
 MIT © 2026 Sofian — see [LICENSE](LICENSE).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- REFERENCE_LINKS -->

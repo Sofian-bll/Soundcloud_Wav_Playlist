@@ -1,192 +1,469 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Soundcloud WAV Playlist Downloader</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCPDL-Wav</title>
+<meta name="description" content="Soundcloud Wav - Playlist Downloader">
+<meta name="theme-color" content="#0a0908">
+<meta property="og:title" content="SCPDL-Wav">
+<meta property="og:description" content="Soundcloud Wav - Playlist Downloader">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SCPDL-Wav">
+<meta name="twitter:description" content="Soundcloud Wav - Playlist Downloader">
+<meta name="twitter:image" content="assets/logo.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      bg: 'var(--bg)',
+      surface: 'var(--surface)',
+      elevated: 'var(--elevated)',
+      border: 'var(--border)',
+      text: 'var(--text)',
+      muted: 'var(--muted)',
+      peach: '#f77f00',
+      pink: '#e36414',
+      purple: '#6366f1'
+    }
+  }}
+}
+</script>
+
 <style>
-  :root {
-    --bg: #0c0b0f;
-    --surface: #18161d;
-    --text: #e8e4f0;
-    --muted: #8a8499;
-    --accent: #f77f00;
-    --accent2: #e36414;
-    --border: #2a2633;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+:root {
+  --bg: #0a0908;
+  --surface: #131110;
+  --elevated: #1a1715;
+  --border: #2a2725;
+  --text: #f5f0eb;
+  --muted: rgba(245,240,235,0.58);
+  --peach: #f77f00;
+  --pink: #e36414;
+  --purple: #6366f1;
+  --light-bg: #faf8f5;
+  --light-surface: #ffffff;
+  --light-elevated: #f0ede8;
+  --light-border: #e0dbd3;
+  --light-text: #1a1815;
+  --light-muted: rgba(26,24,21,0.55);
+}
 
-  header {
-    padding: 72px 0 48px;
-    text-align: center;
-  }
-  .header-logo { width: 96px; height: 96px; margin-bottom: 20px; }
-  h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .subtitle { font-size: 1rem; color: var(--muted); max-width: 440px; margin: 0 auto 20px; }
-  .badges {
-    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
-  }
-  .badge {
-    font-size: 0.7rem; font-weight: 600; padding: 4px 10px;
-    border-radius: 16px; border: 1px solid var(--border); color: var(--muted);
-  }
-  .badge.hl { color: var(--accent); border-color: var(--accent); }
+.light {
+  --bg: var(--light-bg);
+  --surface: var(--light-surface);
+  --elevated: var(--light-elevated);
+  --border: var(--light-border);
+  --text: var(--light-text);
+  --muted: var(--light-muted);
+}
 
-  .waves {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 3px;
-    margin: 0 0 32px;
-    overflow: hidden;
-  }
-  .waves span {
-    display: block;
-    width: 4px;
-    background: linear-gradient(to top, var(--accent), transparent);
-    border-radius: 2px;
-    animation: wave 1.2s ease-in-out infinite alternate;
-  }
-  @keyframes wave { 0% { height: 10px; } 100% { height: calc(20px + 40px * var(--s, 0.5)); } }
+.light .glass {
+  background: rgba(255,255,255,0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,0,0,0.08);
+}
 
-  section { padding: 40px 0; }
-  section + section { border-top: 1px solid var(--border); }
-  h2 { font-size: 1.2rem; margin-bottom: 16px; color: var(--accent); }
+.light nav, .light header {
+  background: #ffffffdd;
+}
 
-  .terminal {
-    background: #0a090e;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 32px;
-  }
-  .terminal-bar {
-    padding: 8px 14px; background: var(--surface);
-    border-bottom: 1px solid var(--border); display: flex; gap: 8px;
-  }
-  .terminal-bar span { width: 10px; height: 10px; border-radius: 50%; background: #444; }
-  .terminal-bar span:nth-child(1) { background: #ff5f56; }
-  .terminal-bar span:nth-child(2) { background: #ffbd2e; }
-  .terminal-bar span:nth-child(3) { background: #27c93f; }
-  .terminal-body {
-    padding: 16px 18px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 0.8rem;
-    line-height: 1.8;
-    overflow-x: auto;
-  }
-  .terminal-body .pr { color: var(--accent2); }
-  .terminal-body .cmd { color: var(--accent); }
-  .terminal-body .out { color: var(--muted); }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .feature {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
-  }
-  .feature h3 { font-size: 0.95rem; margin-bottom: 6px; }
-  .feature p { font-size: 0.83rem; color: var(--muted); }
+.headline {
+  font-family: -apple-system, "SF Compact Display", "Helvetica Neue", sans-serif;
+  font-stretch: condensed;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
 
-  footer {
-    text-align: center; padding: 40px 0; font-size: 0.78rem;
-    color: var(--muted); border-top: 1px solid var(--border);
-  }
+code, pre { font-family: "SF Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+
+.glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.glass:hover { transform: translateY(-2px); border-color: var(--peach); }
+a:active, button:active { transform: scale(0.97); transition: transform 0.1s ease; }
+
+#back-to-top {
+  position: fixed; bottom: 24px; right: 24px; z-index: 50;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { color: var(--peach); border-color: var(--peach); }
+
+.pulse-dot { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.6); }
+}
+
+.reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+.radial-1 {
+  background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(247,127,0,0.08) 0%, transparent 60%);
+}
+.radial-2 {
+  background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(227,100,20,0.05) 0%, transparent 60%);
+}
+
+:focus-visible {
+  outline: 2px solid var(--peach);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .pulse-dot, #back-to-top { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+  .glass:hover { transform: none !important; }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 </style>
 </head>
-<body>
+<body class="min-h-dvh flex flex-col antialiased relative overflow-x-hidden">
 
-<header class="container">
-  <img src="../assets/logo.svg" alt="Soundcloud WAV Playlist" class="header-logo"/>
-  <h1>scpdlwav</h1>
-  <p class="subtitle">Download SoundCloud playlists and convert every track to lossless WAV with preserved metadata.</p>
-  <div class="badges">
-    <span class="badge hl">MIT</span>
-    <span class="badge">Python 3</span>
-    <span class="badge">ffmpeg</span>
-    <span class="badge">SoundCloud</span>
-  </div>
-</header>
+<div class="fixed inset-0 radial-1 pointer-events-none z-0"></div>
+<div class="fixed inset-0 radial-2 pointer-events-none z-0"></div>
 
-<div class="container">
-  <div class="waves" id="waves"></div>
-</div>
-
-<div class="container">
-  <div class="terminal">
-    <div class="terminal-bar"><span></span><span></span><span></span></div>
-    <div class="terminal-body">
-      <span class="pr">$</span> <span class="cmd">python scpdlwav.py</span><br/>
-      <span class="out">Soundcloud WAV Playlist Downloader</span><br/>
-      <span class="out">Enter playlist URL:</span><br/>
-      <span class="pr">></span> <span class="cmd">https://soundcloud.com/artist/sets/mixtape</span><br/>
-      <span class="out">[1/14] Downloading track...</span><br/>
-      <span class="out">[1/14] Converting to WAV → 1411 kbps, 44.1 kHz</span><br/>
-      <span class="out">[1/14] Done: Artist - Track Title.wav</span><br/>
-      <span class="out">...</span>
+<!-- @section nav -->
+<nav class="sticky top-0 z-50 bg-[#0a0908]/80 backdrop-blur-md border-b border-border py-2 px-6">
+  <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+    <a href="https://github.com/Sofian-bll/Soundcloud_Wav_Playlist" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
+      <img src="assets/logo.png" alt="Logo" class="w-10 h-10 rounded-lg">
+      <span class="font-semibold text-[15px] whitespace-nowrap text-text group-hover:text-peach transition-colors">SCPDL-Wav</span>
+    </a>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <a href="https://github.com/Sofian-bll/Soundcloud_Wav_Playlist" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-xs font-medium text-muted hover:text-text transition-colors px-3 py-1.5 rounded-full border border-border hover:border-peach/30">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <span class="flex items-center gap-1.5 text-xs font-mono text-peach border border-peach/30 px-3 py-1.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-peach pulse-dot"></span>v1.0.0</span>
+      <button id="theme-toggle" class="p-2 rounded-full hover:bg-surface transition-colors text-muted hover:text-text" aria-label="Toggle theme">
+        <svg id="sun-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="moon-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
     </div>
   </div>
-</div>
+</nav>
+<!-- /@section nav -->
 
-<section class="container">
-  <h2>Features</h2>
-  <div class="features">
-    <div class="feature">
-      <h3>Full Playlist Downloads</h3>
-      <p>Point it at a set URL, get every track in one run.</p>
-    </div>
-    <div class="feature">
-      <h3>Lossless WAV</h3>
-      <p>Conversion via ffmpeg — 1411 kbps, 44.1 kHz stereo.</p>
-    </div>
-    <div class="feature">
-      <h3>Metadata Intact</h3>
-      <p>Title, artist, genre, track number, date, and cover art preserved.</p>
-    </div>
-    <div class="feature">
-      <h3>Quick Setup</h3>
-      <p>One venv, one pip install, one ffmpeg binary. That's it.</p>
+<main class="flex-1">
+
+<!-- ============================================================ -->
+<!-- HERO — centered (default: CLI / lib / docs, no screenshot)   -->
+<!-- ============================================================ -->
+
+<!-- @section hero-centered -->
+<section class="relative pt-20 pb-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center flex flex-col items-center reveal">
+      <div class="flex items-center gap-2 text-muted uppercase tracking-[0.2em] text-[10px] font-bold mb-6">
+        <span class="w-1.5 h-1.5 bg-peach rounded-full pulse-dot"></span>
+        Python CLI Tool
+      </div>
+      <h1 class="headline text-5xl md:text-7xl font-bold leading-[0.95] mb-6 max-w-4xl">
+        SCPDL-Wav
+      </h1>
+      <p class="text-muted text-lg md:text-xl max-w-2xl leading-relaxed mb-10">
+        Soundcloud Wav - Playlist Downloader
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 mb-16">
+        <a href="#quick-start" class="px-8 py-3 rounded-full font-bold text-sm text-[#0a0908] bg-gradient-to-br from-peach to-pink hover:opacity-90 transition-opacity">Get Started</a>
+        <a href="https://github.com/Sofian-bll/Soundcloud_Wav_Playlist" target="_blank" rel="noopener noreferrer" class="px-8 py-3 rounded-full font-bold text-sm text-text border border-border hover:border-peach/30 hover:bg-surface transition-colors">View on GitHub</a>
+      </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl mx-auto pt-12 reveal visible" style="transition-delay:.15s">
+<div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
+          <div class="w-9 h-9 rounded-lg bg-peach/10 text-peach flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div class="min-w-0">
+            <div class="text-sm"><span class="font-bold text-lg text-peach leading-tight">1</span> <span class="font-semibold text-text">Star</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">on GitHub</div>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
 </section>
+<!-- /@section hero-centered -->
 
-<footer>
-  <p>MIT &copy; 2026 Sofian &middot; <a href="https://github.com/Sofian-bll/Soundcloud_Wav_Playlist">GitHub</a></p>
+<!-- ============================================================ -->
+<!-- HERO — with screenshot (web apps)                             -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- STORY — glass cards with connector dots                       -->
+<!-- ============================================================ -->
+
+
+
+<!-- ============================================================ -->
+<!-- FEATURES — glass cards with colored icon containers           -->
+<!-- ============================================================ -->
+
+<!-- @section features -->
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <h2 class="headline text-3xl md:text-4xl font-bold mb-4">Features</h2>
+      
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.0s">
+        <div class="w-10 h-10 rounded-xl bg-peach/10 text-peach flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3 class="font-bold text-lg">Full Playlist Downloads</h3>
+        <p class="text-muted text-sm leading-relaxed">Point at a SoundCloud set URL, get every track in one run.</p>
+      </div>
+      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.1s">
+        <div class="w-10 h-10 rounded-xl bg-pink/10 text-pink flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg">Lossless WAV Conversion</h3>
+        <p class="text-muted text-sm leading-relaxed">ffmpeg transcodes to uncompressed 44.1 kHz / 16-bit stereo WAV.</p>
+      </div>
+      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.2s">
+        <div class="w-10 h-10 rounded-xl bg-purple/10 text-purple flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <h3 class="font-bold text-lg">Metadata Preservation</h3>
+        <p class="text-muted text-sm leading-relaxed">Title, artist, album, genre, track number, date, and cover art carried over from source.</p>
+      </div>
+      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.3s">
+        <div class="w-10 h-10 rounded-xl bg-peach/10 text-peach flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="font-bold text-lg">Multi-Format Input</h3>
+        <p class="text-muted text-sm leading-relaxed">Handles M4A (AAC), MP3 (ID3), and OPUS with format-specific metadata extraction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section features -->
+
+<!-- ============================================================ -->
+<!-- QUICK START — CLI tool (macOS terminal panels)               -->
+<!-- ============================================================ -->
+
+<!-- @section quick-cli -->
+<section id="quick-start" class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <h2 class="headline text-3xl md:text-4xl font-bold mb-4">Quick Start</h2>
+      <p class="text-muted">Get up and running in under 60 seconds.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.0s">
+        <div class="flex items-center gap-1.5 px-4 py-3 bg-surface border-b border-white/5 rounded-t-2xl">
+          <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Setup</span>
+          <button class="ml-auto text-muted hover:text-peach transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="setup">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <pre id="code-setup" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Clone the repo</span>
+<code class="text-purple">git clone https://github.com/Sofian-bll/Soundcloud_Wav_Playlist.git</code>
+<code class="text-purple">cd Soundcloud_Wav_Playlist</code>
+<span class="text-muted"># Create virtual env</span>
+<code class="text-peach">python3 -m venv .venv && source .venv/bin/activate</code>
+<span class="text-muted"># Install deps</span>
+<code class="text-peach">pip install -r requirements.txt</code>
+<span class="text-muted"># macOS (apt install ffmpeg on Linux)</span>
+<code class="text-pink">brew install ffmpeg</code></pre>
+      </div>
+      <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.1s">
+        <div class="flex items-center gap-1.5 px-4 py-3 bg-surface border-b border-white/5 rounded-t-2xl">
+          <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">Run</span>
+          <button class="ml-auto text-muted hover:text-peach transition-colors p-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100" aria-label="Copy" data-copy="run">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <pre id="code-run" class="p-6 text-sm text-text leading-relaxed whitespace-pre-wrap overflow-x-hidden"><span class="text-muted"># Direct URL mode</span>
+<code class="text-peach">python scpdlwav.py --url https://soundcloud.com/user/sets/playlist</code>
+<span class="text-muted"># Preview without downloading</span>
+<code class="text-pink">python scpdlwav.py --dry-run --url https://soundcloud.com/user/sets/playlist</code>
+<span class="text-muted"># Verbose mode</span>
+<code class="text-purple">python scpdlwav.py --verbose --url https://soundcloud.com/user/sets/playlist</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section quick-cli -->
+
+<!-- ============================================================ -->
+<!-- QUICK START — web app (setup + .env panels)                  -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- DEMO — screenshot or video embed                              -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- FAQ — details/summary elements                                -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- ARCHITECTURE — stacked cards with CSS connectors              -->
+<!-- ============================================================ -->
+
+<!-- @section architecture -->
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <h2 class="headline text-3xl md:text-4xl font-bold mb-4">Architecture</h2>
+      <p class="text-muted">Project structure at a glance.</p>
+    </div>
+    <div class="reveal max-w-2xl mx-auto" style="transition-delay:.1s">
+      <div class="glass rounded-[20px] overflow-hidden">
+        <div class="flex items-center gap-1.5 px-4 py-3 bg-surface border-b border-border rounded-t-[20px]">
+          <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          <span class="text-[10px] text-muted ml-2 font-mono uppercase tracking-wider">tree SCPDL-Wav</span>
+        </div>
+        <pre class="p-6 font-mono text-xs sm:text-sm text-left leading-relaxed whitespace-pre-wrap overflow-x-hidden">Soundcloud_Wav_Playlist/
+├── LICENSE
+├── README.md
+├── README.fr.md
+├── assets/
+│   └── logo.svg
+├── docs/
+│   ├── .nojekyll
+│   ├── assets/
+│   │   └── logo.png
+│   └── index.html
+├── requirements.txt
+├── scpdlwav.py
+└── setup_env.py</pre>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section architecture -->
+
+</main>
+
+<!-- ============================================================ -->
+<!-- FOOTER — clean, minimal                                       -->
+<!-- ============================================================ -->
+
+<!-- @section footer -->
+<footer class="py-8 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+    <div>MIT License &copy; 2026 Sofian</div>
+    <div class="flex items-center gap-2">
+      <img src="https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54" alt="Python" class="h-5">
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">ffmpeg</span>
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">mutagen</span>
+        <span class="text-[10px] font-mono border border-border px-3 py-1 rounded-full">scdl</span>
+    </div>
+  </div>
 </footer>
+<!-- /@section footer -->
+
+<!-- ============================================================ -->
+<!-- SCRIPTS (fixed, never change)                                -->
+<!-- ============================================================ -->
 
 <script>
-(function(){
-  const waves = document.getElementById('waves');
-  for(let i = 0; i < 80; i++) {
-    const s = document.createElement('span');
-    s.style.setProperty('--s', Math.random().toFixed(2));
-    s.style.animationDelay = (Math.random() * 1.5).toFixed(2) + 's';
-    waves.appendChild(s);
+// Theme toggle
+(function() {
+  var toggle = document.getElementById('theme-toggle');
+  var sun = document.getElementById('sun-icon');
+  var moon = document.getElementById('moon-icon');
+  var html = document.documentElement;
+
+  function setTheme(l) {
+    if (l) { html.classList.add('light'); sun.classList.remove('hidden'); moon.classList.add('hidden'); }
+    else   { html.classList.remove('light'); sun.classList.add('hidden'); moon.classList.remove('hidden'); }
   }
+
+  var s = localStorage.getItem('theme');
+  setTheme(s === 'light');
+
+  toggle.addEventListener('click', function() {
+    var isLight = !html.classList.contains('light');
+    setTheme(isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+})();
+
+// Scroll reveal
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 })();
 </script>
+
+<script>
+// Copy to clipboard
+document.querySelectorAll('[data-copy]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var id = this.getAttribute('data-copy');
+    var el = document.getElementById('code-' + id);
+    var txt = el.textContent.trim();
+    navigator.clipboard.writeText(txt).then(function() {
+      var origHTML = btn.innerHTML;
+      btn.innerHTML = '<span class="text-peach text-[10px] font-bold uppercase tracking-wider">Copied!</span>';
+      setTimeout(function() { btn.innerHTML = origHTML; }, 1500);
+    }).catch(function() {});
+  });
+});
+</script>
+
+
+
+<script>
+// Back to top
+(function() {
+  var btt = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 500) btt.classList.add('visible');
+    else btt.classList.remove('visible');
+  }, {passive: true});
+})();
+</script>
+
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
 </body>
 </html>
